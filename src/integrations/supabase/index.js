@@ -13,7 +13,10 @@ export function SupabaseProvider({ children }) {
 
 const fromSupabase = async (query) => {
     const { data, error } = await query;
-    if (error) throw new Error(error.message);
+    if (error) {
+        console.error(error.message);
+        throw new Error(error.message);
+    }
     return data;
 };
 
@@ -62,6 +65,7 @@ const fromSupabase = async (query) => {
 
 */
 
+// Hooks for profiles table
 export const useProfiles = () => useQuery({
     queryKey: ['profiles'],
     queryFn: () => fromSupabase(supabase.from('profiles').select('*')),
@@ -102,6 +106,7 @@ export const useDeleteProfile = () => {
     });
 };
 
+// Hooks for events table
 export const useEvents = () => useQuery({
     queryKey: ['events'],
     queryFn: () => fromSupabase(supabase.from('events').select('*')),
@@ -142,6 +147,7 @@ export const useDeleteEvent = () => {
     });
 };
 
+// Hooks for comments table
 export const useComments = () => useQuery({
     queryKey: ['comments'],
     queryFn: () => fromSupabase(supabase.from('comments').select('*')),
@@ -182,6 +188,7 @@ export const useDeleteComment = () => {
     });
 };
 
+// Hooks for venues table
 export const useVenues = () => useQuery({
     queryKey: ['venues'],
     queryFn: () => fromSupabase(supabase.from('venues').select('*')),
